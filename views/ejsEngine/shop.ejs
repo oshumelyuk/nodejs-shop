@@ -1,0 +1,33 @@
+<%- include('includes/head.ejs')%>
+<link rel="stylesheet" href="/css/product.css" />
+</head>
+
+<body>
+    <%- include('includes/nav.ejs') %>
+    <main>
+        <% if(products.length > 0){ %>
+        <div class="grid">
+            <% for (let product of products){ %>
+            <article class="card product__item">
+                <header class="card__header">
+                    <h1 class="product__title"> <%= product.title%></h1>
+                </header>
+                <div class="card__image">
+                    <img src="https://webcomicms.net/sites/default/files/clipart/157392/image-book-157392-8534224.jpg"
+                        alt="Book" />
+                </div>
+                <div class="card__content">
+                    <h2 class="product__price"> $19.99</h2>
+                    <p class="product__description"> A very interesting book about Harry Potter</p>
+                </div>
+                <div class="card__action">
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </article>
+            <% } %>
+        </div>
+        <% } else { %>
+        <div>No products found</div>
+        <% } %>
+    </main>
+<%- include('includes/footer.ejs') %>
