@@ -6,8 +6,8 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const errorsController = require("./controllers/errors");
 
-app.set("view engine", "ejs");
-app.set("views", path.join("views", "ejsEngine"));
+app.set("view engine", "pug");
+app.set("views", path.join("views", "pugEngine"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/admin", adminRoutes);

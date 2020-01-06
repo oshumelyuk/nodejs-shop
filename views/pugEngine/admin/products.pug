@@ -1,0 +1,27 @@
+extends ../mainLayout.pug
+
+block styles
+    link(rel="stylesheet", href="/css/product.css")
+    script(type="text/javascript", src="/js/main.js")
+
+block content
+    main
+        if products.length > 0 
+            .grid
+                each product in products
+                    article.card.product-item
+                        header.card__header
+                            h1.product__title #{product.title}
+                        .card__image
+                            if product.imageUrl
+                                img(src=product.imageUrl, alt="product image")
+                            else
+                                img(src="https://webcomicms.net/sites/default/files/clipart/157392/image-book-157392-8534224.jpg", alt="book")
+                        .card__content
+                            h2.product__price $#{product.price}
+                            p.product__description #{product.description}
+                        .card__actions
+                            a.btn(href=("/admin/product/" + product.id) ) Edit
+                            button.btn(type="submit", onclick="deleteProduct(" + product.id + ")") Delete
+        else
+            h1 No Products
