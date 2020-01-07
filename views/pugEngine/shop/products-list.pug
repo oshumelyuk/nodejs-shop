@@ -21,7 +21,7 @@ block content
                             p.product__description #{product.description}
                         .card__actions
                             a.btn(href=("/products/" + product.id)) Details
-                            form(action=("/cart/product/" + product.id), method="post")
+                            form(action=("/cart/products/" + product.id), method="post")
                                 button.btn(type="submit") Add to Cart
         else
             h1 No Products

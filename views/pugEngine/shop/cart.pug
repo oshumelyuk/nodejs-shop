@@ -1,5 +1,25 @@
 extends ../mainLayout.pug
 
+block styles
+    link(rel="stylesheet", href="/css/cart.css")
+
 block content
     main 
         h1 Shopping cart
+        div.shopping-cart
+            div
+                span.span8 Product
+                span.span3 Q-ty
+            if cart.products && cart.products.length > 0 
+                each product in cart.products
+                    div 
+                        span.span8 #{product.info.title} 
+                        span.span3 #{product.qty}
+                        span.span3 $#{(product.info.price * product.qty)}
+                hr
+                div TOTAL: $#{cart.totalPrice}
+
+            else
+                div
+                    span No products in cart yet..
+                    a(href="/products") Continue shopping
