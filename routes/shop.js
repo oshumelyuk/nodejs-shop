@@ -9,6 +9,7 @@ const ordersController = require("../controllers/orders");
 router.get("/cart", cartController.getCart);
 router.get("/orders", ordersController.getOrders);
 router.post("/cart/products/:id", cartController.postAddProduct);
+router.delete("/cart/products/:id", cartController.deleteProduct);
 router.get("/products", productsController.getProducts);
 router.get("/products/:id", productsController.getProductDetails)
 router.get("/", landingController.getLanding);

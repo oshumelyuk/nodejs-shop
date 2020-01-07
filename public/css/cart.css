@@ -1,18 +1,10 @@
-.span3{
-    width: 180px;
-    display: inline-block;
-}
-
-.span6{
-    width: 360px;
-    display: inline-block;
-}
-
-.span8{
-    width: 480px;
-    display: inline-block;
-}
-
 .shopping-cart{
-    width: 60%;
+    width: 80%;
+}
+
+.shopping-cart .row
+{
+    padding-bottom: 10px;
+    overflow: hidden;
+    display:block;
 }

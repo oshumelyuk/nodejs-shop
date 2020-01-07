@@ -43,4 +43,21 @@ module.exports = class Cart {
             });
         });
     }
+
+    static async removeProduct(productId) {
+        const cart = await Cart.readCart();
+        const existingProductIndex = cart.products
+            ? cart.products.findIndex(p => p.id == productId)
+            : null;
+        if (existingProductIndex >= 0) {
+            let existingProduct = cart.products[existingProductIndex];
+            cart.products.splice(existingProductIndex, 1);
+            cart.totalPrice = cart.totalPrice - parseFloat(existingProduct.price) * existingProduct.qty;
+            return new Promise((resolve, reject) => {
+                fs.writeFile(filePath, JSON.stringify(cart), () => {
+                    resolve();
+                });
+            });
+        }
+    }
 }

@@ -6,3 +6,10 @@ function deleteProduct(productId){
   } )
 }
 
+function deleteProductFromCart(productId){
+  return fetch(`/cart/products/${productId}`, {
+    method: 'delete'
+  }).then( (data) => {
+    location = "/cart";
+  } )
+}

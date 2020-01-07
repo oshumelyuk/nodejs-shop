@@ -202,3 +202,23 @@ form {
     display: none;
   }
 }
+
+.span2{
+  width: 120px;
+  display: inline-block;
+}
+
+.span3{
+  width: 180px;
+  display: inline-block;
+}
+
+.span6{
+  width: 360px;
+  display: inline-block;
+}
+
+.span8{
+  width: 480px;
+  display: inline-block;
+}

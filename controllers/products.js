@@ -3,16 +3,10 @@ const Product = require('../models/product');
 module.exports = {
     getAddProduct: async (req, resp, next) => {
         var id = req.params.id;
-        if (!id) {
-            return resp.render("admin/add-product", {
-                title: "Add Product",
-                path: "/admin/product",
-            });
-        }
-        const product = await Product.getById(id);
+        const product = id && await Product.getById(id);
         return resp.render('admin/edit-product', {
-            title: product.title,
-            path: "/admin/products",
+            title: product ? product.title : "Add Product",
+            path: "/admin/product",
             product: product
         });
     },
@@ -45,7 +39,6 @@ module.exports = {
         });
     },
     deleteProduct: async(req, resp, next) => {
-        console.log("Delete product");
         const id = req.params.id;
         await Product.delete(id);
         return resp.redirect("/admin/products");

@@ -12,7 +12,8 @@ module.exports = class Product {
 
     async save() {
         let products = await Product.fetchAll();
-        const maxId = products.length > 0 ? Math.max( products.map(x => x.id)) : 0;
+        const productsId = products.map(x => x.id);
+        const maxId = products.length > 0 ? Math.max(...productsId) : 0;
         products = products.filter(function(item) {
             return item.id != id;
         });
@@ -21,7 +22,7 @@ module.exports = class Product {
             description: this.description,
             price: this.price,
             imageUrl: this.imageUrl,
-            id: this.id || (maxId + 1)
+            id: this.id ? parseInt(this.id) : (maxId + 1)
         });
         return new Promise((resolve, reject) => {
             fs.writeFile(filePath, JSON.stringify(products), () => {

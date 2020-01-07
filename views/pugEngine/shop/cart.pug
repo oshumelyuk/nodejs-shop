@@ -2,20 +2,25 @@ extends ../mainLayout.pug
 
 block styles
     link(rel="stylesheet", href="/css/cart.css")
+    script(type="text/javascript", src="/js/main.js")
 
 block content
     main 
         h1 Shopping cart
         div.shopping-cart
-            div
-                span.span8 Product
-                span.span3 Q-ty
             if cart.products && cart.products.length > 0 
+                div.row
+                    span.span8 Product
+                    span.span2 Q-ty
+                    span.span2 Price
+                    span.span2 Action
                 each product in cart.products
-                    div 
+                    div.row 
                         span.span8 #{product.info.title} 
-                        span.span3 #{product.qty}
-                        span.span3 $#{(product.info.price * product.qty)}
+                        span.span2 #{product.qty}
+                        span.span2 $#{(product.info.price * product.qty)}
+                        span.span2 
+                            button.btn(onclick="deleteProductFromCart(" + product.id + ")") Delete
                 hr
                 div TOTAL: $#{cart.totalPrice}
 
