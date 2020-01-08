@@ -11,13 +11,12 @@ module.exports = class Product {
     async save() {
         if (this.id) {
             const cmd = `UPDATE products 
-                SET title='${this.title}', description='${this.description}', price=${this.price}, imageUrl='${this.imageUrl}' 
+                SET title=?, description=?, price=?, imageUrl=?
                 where id=${Number(id)}`;
-            return db.execute(cmd);
+            return db.execute(cmd, [this.title, this.description, this.price, this.imageUrl]);
         } else {
-            const cmd = `INSERT INTO products(title, description, price, imageUrl) 
-                VALUES ('${this.title}', '${this.description}', ${this.price}, '${this.imageUrl}')`;
-            return db.execute(cmd);
+            const cmd = `INSERT INTO products(title, description, price, imageUrl) VALUES (?, ?, ?, ?)`;
+            return db.execute(cmd, [this.title, this.description, this.price, this.imageUrl]);
         }
 
     }
@@ -29,7 +28,6 @@ module.exports = class Product {
 
     static async delete(id) {
         const cmd = `DELETE from products where id=${Number(id)}`;
-        console.log(cmd);
         await db.execute(cmd);
     }
 
