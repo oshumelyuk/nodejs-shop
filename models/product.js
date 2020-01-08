@@ -1,6 +1,4 @@
-const fs = require('fs');
-const path = require('path');
-const filePath = path.join(path.dirname(process.mainModule.filename), 'data', 'products.json');
+const db = require("../utils/database");
 
 module.exports = class Product {
     constructor(title, imageUrl, description, price) {
@@ -11,50 +9,32 @@ module.exports = class Product {
     }
 
     async save() {
-        let products = await Product.fetchAll();
-        const productsId = products.map(x => x.id);
-        const maxId = products.length > 0 ? Math.max(...productsId) : 0;
-        products = products.filter(function(item) {
-            return item.id != id;
-        });
-        products.push({ 
-            title: this.title,
-            description: this.description,
-            price: this.price,
-            imageUrl: this.imageUrl,
-            id: this.id ? parseInt(this.id) : (maxId + 1)
-        });
-        return new Promise((resolve, reject) => {
-            fs.writeFile(filePath, JSON.stringify(products), () => {
-                resolve();
-            });
-        });
+        if (this.id) {
+            const cmd = `UPDATE products 
+                SET title='${this.title}', description='${this.description}', price=${this.price}, imageUrl='${this.imageUrl}' 
+                where id=${Number(id)}`;
+            return db.execute(cmd);
+        } else {
+            const cmd = `INSERT INTO products(title, description, price, imageUrl) 
+                VALUES ('${this.title}', '${this.description}', ${this.price}, '${this.imageUrl}')`;
+            return db.execute(cmd);
+        }
 
     }
 
-    static fetchAll() {
-        return new Promise((resolve, reject) => {
-            fs.readFile(filePath, (err, data) => {
-                console.log(err, data);
-                resolve(err ? [] : JSON.parse(data));
-            });
-        });
+    static async fetchAll() {
+        const [rows, fields] = await db.execute("SELECT * from products");
+        return rows;
     }
 
-    static async delete(id){
-        let products = await Product.fetchAll();
-        products = products.filter(function(item) {
-            return item.id != id;
-        });
-        return new Promise((resolve, reject) => {
-            fs.writeFile(filePath, JSON.stringify(products), () => {
-                resolve();
-            });
-        });
+    static async delete(id) {
+        const cmd = `DELETE from products where id=${Number(id)}`;
+        console.log(cmd);
+        await db.execute(cmd);
     }
 
-    static async getById(id){
-        let products = await Product.fetchAll();
-        return products.find(x => x.id == id);
+    static async getById(id) {
+        const [rows, fields] = await db.execute(`SELECT * from products where id=${Number(id)}`);
+        return rows.length > 0 ? rows[0] : null;
     }
 }
