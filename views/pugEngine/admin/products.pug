@@ -22,6 +22,6 @@ block content
                             p.product__description #{product.description}
                         .card__actions
                             a.btn(href=("/admin/product/" + product.id) ) Edit
-                            button.btn(type="submit", onclick="deleteProduct(" + product.id + ")") Delete
+                            button.btn(type="submit", onclick="deleteProduct('" + product.id + "')") Delete
         else
             h1 No Products

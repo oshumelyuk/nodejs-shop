@@ -5,6 +5,7 @@ const app = express();
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const errorsController = require("./controllers/errors");
+const mongoConnect = require('./utils/database').mongoConnect;
 
 app.set("view engine", "pug");
 app.set("views", path.join("views", "pugEngine"));
@@ -14,4 +15,6 @@ app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 app.use(errorsController.get404);
 
-app.listen(3000);
+mongoConnect().then(() => {
+    app.listen(3000);
+});
