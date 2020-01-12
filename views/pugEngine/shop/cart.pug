@@ -20,10 +20,11 @@ block content
                         span.span2 #{product.qty}
                         span.span2 $#{(product.info ? product.info.price * product.qty : '0')}
                         span.span2 
-                            button.btn(onclick="deleteProductFromCart(" + product.id + ")") Delete
+                            button.btn(onclick="deleteProductFromCart(" + product.info.id + ")") Delete
                 hr
                 div TOTAL: $#{cart.totalPrice}
-
+                div
+                    button.btn(onclick="checkout()") Checkout
             else
                 div
                     span No products in cart yet..

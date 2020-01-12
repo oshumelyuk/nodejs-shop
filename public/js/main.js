@@ -13,3 +13,11 @@ function deleteProductFromCart(productId){
     location = "/cart";
   } )
 }
+
+function checkout(){
+  return fetch(`/order`, {
+    method: 'post'
+  }).then( (data) => {
+    location = "/orders";
+  } )
+}
