@@ -203,6 +203,11 @@ form {
   }
 }
 
+.span1{
+  width: 60px;
+  display: inline-block;
+}
+
 .span2{
   width: 120px;
   display: inline-block;

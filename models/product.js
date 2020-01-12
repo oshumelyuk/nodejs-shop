@@ -39,7 +39,7 @@ module.exports = class Product {
     const products = await db.collection("products").find({}).toArray();
     products.forEach(p => {
       if (p)
-        p.id = p._id;
+        p.id = p._id.toString();
     });
     return products; 
   }
@@ -55,7 +55,7 @@ module.exports = class Product {
     const db = getDb();
     const product = await db.collection("products").findOne(new mongodb.ObjectId(id));
     if (product){
-      product.id = product._id;
+      product.id = product._id.toString();
     }
     return product;
   }

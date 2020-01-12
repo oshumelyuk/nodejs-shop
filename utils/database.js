@@ -5,7 +5,7 @@ let _client;
 
 const mongoConnect = async () => {
   const dbs = await MongoClient.connect(
-    "mongodb+srv://shopAdmin:OMcOKPUx7GEVKnW1@cluster0-230jr.mongodb.net/nodejs-shop?retryWrites=true&w=majority"
+    "<connection string>"
   );
   _client = dbs.db("nodejs-shop");
   _client.createCollection("products");

@@ -6,6 +6,8 @@ block styles
 
 block content
     main
+        div
+            a.btn(href=("/admin/product")) Add new product
         if products.length > 0 
             .grid
                 each product in products
