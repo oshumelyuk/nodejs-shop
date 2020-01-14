@@ -1,5 +1,31 @@
 extends ../mainLayout.pug
 
+block styles
+    link(rel="stylesheet", href="/css/cart.css")
+    script(type="text/javascript", src="/js/main.js")
+
 block content
-    main   
+    main 
         h1 Orders
+        div.shopping-cart
+            if orders && orders.length > 0 
+                div.row
+                    span.span1 #
+                    span.span6 Product
+                    span.span2 Q-ty
+                    span.span2 Price
+                each order in orders
+                    div.row 
+                        span.span8 Order from #{order.createdAt.toISOString().replace("T", " ")}
+                    each product, index in order.products
+                        div.row 
+                            span.span1 #{(index+1)} 
+                            span.span6 #{product.productTitle}
+                            span.span2 #{product.quantity}
+                            span.span2 $#{(product.productPrice * product.quantity)}
+                    div.row
+                        span.span8 TOTAL: $#{order.totalPrice}
+                    hr
+            else
+                div
+                    span No orders

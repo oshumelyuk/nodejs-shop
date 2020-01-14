@@ -17,13 +17,15 @@ block content
                 each product in cart.products
                     div.row 
                         span.span8 #{(product.info ? product.info.title: 'NOT AVAILABLE')} 
-                        span.span2 #{product.qty}
-                        span.span2 $#{(product.info ? product.info.price * product.qty : '0')}
+                        span.span2 #{product.quantity}
+                        span.span2 $#{(product.info ? product.info.price * product.quantity : '0')}
                         span.span2 
-                            button.btn(onclick="deleteProductFromCart(" + product.id + ")") Delete
+                            button.btn(onclick="deleteProductFromCart('" + product.productId + "')") Delete
                 hr
                 div TOTAL: $#{cart.totalPrice}
-
+                hr 
+                div 
+                    button.btn(onclick="checkout()") Checkout
             else
                 div
                     span No products in cart yet..

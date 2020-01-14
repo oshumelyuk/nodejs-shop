@@ -6,6 +6,8 @@ block styles
 
 block content
     main
+        div
+            a.btn(href=("/admin/product")) Add new product
         if products.length > 0 
             .grid
                 each product in products
@@ -22,6 +24,6 @@ block content
                             p.product__description #{product.description}
                         .card__actions
                             a.btn(href=("/admin/product/" + product.id) ) Edit
-                            button.btn(type="submit", onclick="deleteProduct(" + product.id + ")") Delete
+                            button.btn(type="submit", onclick="deleteProduct('" + product.id + "')") Delete
         else
             h1 No Products
