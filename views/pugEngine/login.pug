@@ -1,0 +1,18 @@
+extends mainLayout.pug
+
+block styles
+    link(rel="stylesheet", href="/css/login.css")
+
+block content
+    form.login(action="/login" method="POST")
+        if data && data.error
+            .error
+                span #{data.error}
+        .form-control
+            label(for="login") Email
+            input#login(type="text", name="login", value=(data && data.login ? data.login : '' ))
+        .form-control 
+            label(for="password") Password
+            input#password(type="password", name="password", value=(data && data.password ? data.password : ''))
+        button.btn(type="submit") Login
+        

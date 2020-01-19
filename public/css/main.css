@@ -227,3 +227,8 @@ form {
   width: 480px;
   display: inline-block;
 }
+
+.error{
+  color: red;
+  text-align: center;
+}

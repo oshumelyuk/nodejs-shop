@@ -4,7 +4,7 @@ function deleteProduct(productId){
   }).then( (data) => {
     location = "/admin/products";
   } )
-}
+};
 
 function deleteProductFromCart(productId){
   return fetch(`/cart/products/${productId}`, {
@@ -12,7 +12,7 @@ function deleteProductFromCart(productId){
   }).then( (data) => {
     location = "/cart";
   } )
-}
+};
 
 function checkout(){
   return fetch(`/order`, {
@@ -20,4 +20,12 @@ function checkout(){
   }).then( (data) => {
     location = "/orders";
   } )
-}
+};
+
+function logout(){
+  return fetch(`/logout`, {
+    method: 'POST'
+  }).then( (data) => {
+    location = "/login";
+  } )
+};

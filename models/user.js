@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   name: String,
   email: String,
+  pwdHash: {
+    type: String,
+    required: true
+  },
+  role: String,
   cart: {
     products: [
       {
@@ -24,7 +29,6 @@ userSchema.methods.addToCart = function(product) {
   const cartProduct = this.cart.products.find(
     ({ productId }) => productId.toString() === product.id
   );
-  console.log(this.cart.products, product.id);
 
   if (cartProduct) {
     cartProduct.quantity++;

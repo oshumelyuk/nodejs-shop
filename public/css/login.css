@@ -1,0 +1,36 @@
+form.login{
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+}
+
+.login .form-control {
+    padding: 5px 0px;
+}
+
+.login .form-control label
+{
+    width: 100px;
+    display: inline-block;
+}
+
+.login .form-control input{
+    width: 300px;
+    height: 40px;
+    line-height: 36px;
+    font-size: 15px;
+}
+
+.login .btn{
+    align-self: flex-end;
+    margin-right: 8px;
+    margin-top: 5px;
+}
+
+.login .error{
+    text-align: right;
+    margin-right: 10px;
+}
