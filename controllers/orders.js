@@ -7,8 +7,6 @@ module.exports = {
     return resp.render("shop/orders", {
       title: "Orders",
       path: "/orders",
-      isAuthN: req.session.isAuthN,
-      isAdmin: req.session.isAdmin,
       orders: orders
     });
   },
@@ -39,8 +37,6 @@ module.exports = {
     return resp.render("shop/orders", {
       title: "Orders",
       path: "/orders",
-      isAuthN: req.session.isAuthN,
-      isAdmin: req.session.isAdmin,
     });
   }
 };

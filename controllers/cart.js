@@ -23,8 +23,6 @@ module.exports = {
     return resp.render("shop/cart", {
       title: "Cart",
       path: "/cart",
-      isAuthN: req.session.isAuthN,
-      isAdmin: req.session.isAdmin,
       cart: { products, totalPrice }
     });
   },

@@ -4,6 +4,8 @@ const MongoDbSessionStore = require("connect-mongodb-session")(session);
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
+const csrf = require('csurf');
+
 const { port, database, sessionSecret } = require("./utils/config");
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
@@ -16,17 +18,25 @@ const store = new MongoDbSessionStore({
   uri: MONGO_DB_URI,
   collection: "sessions"
 });
+const csrfProtection = csrf();
 
 app.set("view engine", "pug");
 app.set("views", path.join("views", "pugEngine"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(session({ secret: sessionSecret, resave: false, saveUninitialized: false, store: store }));
-
+app.use(csrfProtection);
 app.use(async (req, resp, next)=>{
   if (req.session.isAuthN){
     req.user = await User.findById(req.session.userId);
   }
+  await next();
+});
+
+app.use(async (req, resp, next) => {
+  resp.locals.isAuthN = req.session.isAuthN;
+  resp.locals.isAdmin = req.session.isAdmin;
+  resp.locals.csrfToken = req.csrfToken();
   await next();
 });
 

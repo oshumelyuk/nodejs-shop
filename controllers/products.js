@@ -7,8 +7,6 @@ module.exports = {
     return resp.render("admin/edit-product", {
       title: product ? product.title : "Add Product",
       path: "/admin/product",
-      isAuthN: req.session.isAuthN,
-      isAdmin: req.session.isAdmin,
       product: product
     });
   },
@@ -34,8 +32,6 @@ module.exports = {
     resp.render("shop/products-list", {
       title: "All products",
       path: "/products",
-      isAuthN: req.session.isAuthN,
-      isAdmin: req.session.isAdmin,
       products
     });
   },
@@ -46,8 +42,6 @@ module.exports = {
       products: products,
       title: "Admin products",
       path: "/admin/products",
-      isAuthN: req.session.isAuthN,
-      isAdmin: req.session.isAdmin,
     });
   },
   deleteProduct: async (req, resp, next) => {
@@ -62,8 +56,6 @@ module.exports = {
     return resp.render("shop/product-details", {
       title: product.title,
       path: "/products",
-      isAuthN: req.session.isAuthN,
-      isAdmin: req.session.isAdmin,
       product: product,
     });
   }

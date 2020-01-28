@@ -9,8 +9,6 @@ module.exports = {
         return resp.render("login", {
             title: "Log In",
             path: "/login",
-            isAuthN: req.session.isAuthN,
-            isAdmin: req.session.isAdmin,
         })
     },
     postLogin: async (req, resp, next) => {
@@ -28,7 +26,6 @@ module.exports = {
         return resp.render("login", {
             title: "Log In",
             path: "/login",
-            isAuthN: req.session.isAuthN,
             data: {
                 login: login,
                 password: password,
@@ -40,8 +37,6 @@ module.exports = {
         return resp.render("signup", {
             title: "Sign Up",
             path: "/signup",
-            isAuthN: req.session.isAuthN,
-            isAdmin: req.session.isAdmin,
         })
     },
     postSignup: async (req, resp, next) => {
@@ -65,8 +60,6 @@ module.exports = {
         return resp.render("login", {
             title: "Log In",
             path: "/login",
-            isAuthN: req.session.isAuthN,
-            isAdmin: req.session.isAdmin,
             data: {
                 login: login,
                 password: password,
