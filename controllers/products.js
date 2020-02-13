@@ -30,11 +30,9 @@ module.exports = {
     const products = await Product.find({});
     products.forEach(p => p.id = p._id.toString());
     resp.render("shop/products-list", {
-      products: products,
-      hasProducts: products.length > 0,
-      activeShop: true,
       title: "All products",
-      path: "/products"
+      path: "/products",
+      products
     });
   },
   getAdminProducts: async (req, resp, next) => {
@@ -42,10 +40,8 @@ module.exports = {
     products.forEach(p => (p.id = p._id.toString()));
     resp.render("admin/products", {
       products: products,
-      hasProducts: products.length > 0,
-      activeShop: true,
       title: "Admin products",
-      path: "/admin/products"
+      path: "/admin/products",
     });
   },
   deleteProduct: async (req, resp, next) => {
@@ -60,7 +56,7 @@ module.exports = {
     return resp.render("shop/product-details", {
       title: product.title,
       path: "/products",
-      product: product
+      product: product,
     });
   }
 };

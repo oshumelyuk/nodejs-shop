@@ -2,7 +2,8 @@ const Order = require("../models/order");
 
 module.exports = {
   getOrders: async (req, resp, next) => {
-    const orders = await Order.find({});
+    const userId = req.session.userId;
+    const orders = await Order.find({userId : userId});
     return resp.render("shop/orders", {
       title: "Orders",
       path: "/orders",
@@ -10,7 +11,8 @@ module.exports = {
     });
   },
   postOrder: async (req, resp, next) => {
-    const userWithProducts = await req.user
+    const currentUser = req.user;
+    const userWithProducts = await currentUser
       .populate("cart.products.productId")
       .execPopulate();
 
@@ -24,18 +26,17 @@ module.exports = {
     }));
     var newOrder = new Order({
       createdAt: new Date(),
-      userId: req.user._id,
-      userName: req.user.name,
-      userEmail: req.user.email,
+      userId:  currentUser._id,
+      userName: currentUser.name,
+      userEmail: currentUser.email,
       products: products,
       totalPrice: products.reduce((total, curr) => total + curr.quantity * curr.productPrice, 0)
     });
-    console.log(newOrder);
     await newOrder.save();
-    await req.user.clearCart();
+    await currentUser.clearCart();
     return resp.render("shop/orders", {
       title: "Orders",
-      path: "/orders"
+      path: "/orders",
     });
   }
 };
