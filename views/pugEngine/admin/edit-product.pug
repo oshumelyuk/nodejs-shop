@@ -19,7 +19,7 @@ block content
             .form-control
                 label(for="description") Description
                 textarea#description(name="description", rows="5") #{(product? product.description: '')}
-            input(type="hidden", name="_csrf", value="#{csrfToken}")
+            input(type="hidden", name="_csrf", value=csrfToken)
             if product
                 button.btn(type="submit") Save Product
                 a.btn(href="/admin/products") Cancel

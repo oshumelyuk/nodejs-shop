@@ -18,5 +18,5 @@ block content
                 p.product__description #{product.description}
             .card__actions
                 form(action=("/cart/products/" + product.id), method="post")
-                    input(type="hidden", name="_csrf", value="#{csrfToken}")
+                    input(type="hidden", name="_csrf", value=csrfToken)
                     button.btn(type="submit") Add to Cart
