@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
 const csrf = require('csurf');
+const multer = require('multer');
 
 const { port, database, sessionSecret } = require("./utils/config");
 const adminRoutes = require("./routes/admin");
@@ -19,11 +20,30 @@ const store = new MongoDbSessionStore({
   collection: "sessions"
 });
 const csrfProtection = csrf();
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/products');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.filename + '_' + file.originalname);
+  }
+})
+const imageFilter = (req, file, cb) =>{
+  if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg'){
+    cb(null, true);
+  } else{
+    cb(null, false);
+  }
+};
 
 app.set("view engine", "pug");
 app.set("views", path.join("views", "pugEngine"));
+
+app.use("/500", errorsController.get500);
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(multer({ storage: storage, fileFilter: imageFilter }).single("image"));
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/public", express.static(path.join(__dirname, "public")));
 app.use(session({ secret: sessionSecret, resave: false, saveUninitialized: false, store: store }));
 app.use(csrfProtection);
 app.use(async (req, resp, next)=>{
@@ -44,7 +64,10 @@ app.use(async (req, resp, next) => {
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 app.use(errorsController.get404);
-
+app.use((err, req, resp, next) => {
+  console.log(err);
+  resp.redirect("/500");
+});
 mongoose.connect(
   MONGO_DB_URI,
   { useNewUrlParser: true, useUnifiedTopology: true }

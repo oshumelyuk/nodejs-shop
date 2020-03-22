@@ -13,7 +13,7 @@ block content
                             h1.product__title #{product.title}
                         .card__image
                             if product.imageUrl
-                                img(src=product.imageUrl, alt="product image")
+                                img(src=("/" + product.imageUrl), alt="product image")
                             else
                                 img(src="https://webcomicms.net/sites/default/files/clipart/157392/image-book-157392-8534224.jpg", alt="book")
                         .card__content

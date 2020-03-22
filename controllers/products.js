@@ -13,13 +13,16 @@ module.exports = {
   postAddProduct: async (req, resp, next) => {
     id = req.params.id;
     const doc = req.body;
+    if (req.file){
+      doc.imageUrl = req.file? req.file.path : null;
+    }
     let product;
     if (id) {
       product = await Product.findById(id);
       product.title = doc.title;
       product.description = doc.description;
       product.price = doc.price;
-      product.imageUrl = doc.imageUrl;
+      product.imageUrl = doc.imageUrl
     } else {
       product = new Product(doc);
     }
