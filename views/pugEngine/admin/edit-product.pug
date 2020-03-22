@@ -6,13 +6,16 @@ block styles
 
 block content
     main
-        form.product-form(action=("/admin/product/" + (product ? product.id : '')), method="POST", enctype="multipart/form-data")
+        if error
+            .error
+                span #{error}
+        form.product-form(action=("/admin/product/" + (product && product.id ? product.id : '')), method="POST", enctype="multipart/form-data")
             .form-control
                 label(for="title") Title
                 input(type="text", name="title", value=(product ? product.title : ''))#title
             .form-control
                 label(for="imageUrl") Image 
-                if product
+                if (product && product.id)
                     .card__image
                         img(src=('/' + product.imageUrl), alt='product image')
                         input(type="hidden", name="imageUrl", value=product.imageUrl)
@@ -24,7 +27,7 @@ block content
                 label(for="description") Description
                 textarea#description(name="description", rows="5") #{(product? product.description: '')}
             input(type="hidden", name="_csrf", value=csrfToken)
-            if product
+            if (product && product.id)
                 button.btn(type="submit") Save Product
                 a.btn(href="/admin/products") Cancel
             else

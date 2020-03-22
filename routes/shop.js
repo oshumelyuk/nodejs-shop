@@ -5,6 +5,7 @@ const cartController = require("../controllers/cart");
 const ordersController = require("../controllers/orders");
 const usersController = require("../controllers/users");
 const {checkAuthUser} = require("../middleware/auth");
+const valiudators = require("../validators/userValidators");
 
 router.get("/cart", checkAuthUser, cartController.getCart);
 router.get("/orders", checkAuthUser, ordersController.getOrders);
@@ -14,9 +15,9 @@ router.delete("/cart/products/:id", checkAuthUser, cartController.deleteProduct)
 router.get("/products", productsController.getProducts);
 router.get("/products/:id", productsController.getProductDetails);
 router.get("/signup", usersController.getSignup);
-router.post("/signup", usersController.postSignup);
+router.post("/signup", valiudators.signupModelValidators ,usersController.postSignup);
 router.get("/login", usersController.getLogin);
-router.post("/login", usersController.postLogin);
+router.post("/login", valiudators.loginModelValidators, usersController.postLogin);
 router.post("/logout", checkAuthUser, usersController.postLogout);
 router.get("/", usersController.getLogin);
 module.exports = router;

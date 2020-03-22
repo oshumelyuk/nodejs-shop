@@ -1,8 +1,9 @@
 const Product = require("../models/product");
+const {validationResult} = require('express-validator');
 
 module.exports = {
   getAddProduct: async (req, resp, next) => {
-    var id = req.params.id;
+    let id = req.params.id;
     const product = id && (await Product.findById(id));
     return resp.render("admin/edit-product", {
       title: product ? product.title : "Add Product",
@@ -11,8 +12,18 @@ module.exports = {
     });
   },
   postAddProduct: async (req, resp, next) => {
-    id = req.params.id;
+    let id = req.params.id;
     const doc = req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()){
+      return resp.render("admin/edit-product", {
+        title: id ? doc.title : "Add Product",
+        path: "/admin/product",
+        product: {id, ...doc},
+        error: errors.array()[0].msg
+      });
+    }
+
     if (req.file){
       doc.imageUrl = req.file? req.file.path : null;
     }

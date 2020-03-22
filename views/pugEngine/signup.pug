@@ -10,16 +10,16 @@ block content
                 span #{data.error}
         .form-control
             label(for="email") Email
-            input#email(type="text", name="email")
+            input#email(type="text", name="email", value=(data ? data.email : ''))
         .form-control
             label(for="name") Name
-            input#name(type="text", name="name")
+            input#name(type="text", name="name", value=(data ? data.name : ''))
         .form-control 
             label(for="password") Password
-            input#password(type="password", name="password")
+            input#password(type="password", name="password", value=(data ? data.password : ''))
         .form-control 
             label(for="confirmPassword") Confirm password
-            input#confirmPassword(type="password", name="confirmPassword")
+            input#confirmPassword(type="password", name="confirmPassword", value=(data ? data.confirmPassword : ''))
         input(type="hidden", name="_csrf", value=csrfToken)
         button.btn(type="submit") Sign up
         

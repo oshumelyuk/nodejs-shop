@@ -57,7 +57,6 @@ app.use(async (req, resp, next) => {
   resp.locals.isAuthN = req.session.isAuthN;
   resp.locals.isAdmin = req.session.isAdmin;
   resp.locals.csrfToken = req.csrfToken();
-  console.log(resp.locals.csrfToken);
   await next();
 });
 
